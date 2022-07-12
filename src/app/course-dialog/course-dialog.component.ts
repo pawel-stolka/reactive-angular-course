@@ -1,3 +1,4 @@
+import { MessagesService } from './../messages/messages.service';
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import {Course} from "../model/course";
@@ -13,7 +14,8 @@ import { LoadingService } from '../loading/loading.service';
     templateUrl: './course-dialog.component.html',
     styleUrls: ['./course-dialog.component.css'],
     providers: [
-      LoadingService
+      LoadingService,
+      // MessagesService
     ]
 })
 export class CourseDialogComponent implements AfterViewInit {
