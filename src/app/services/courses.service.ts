@@ -15,7 +15,7 @@ export class CoursesService {
         return this.http.get<Course[]>('/api/courses')
             .pipe(
                 map(res => res['payload']),
-                delay(1500),
+                delay(500),
                 shareReplay()
             )
     }

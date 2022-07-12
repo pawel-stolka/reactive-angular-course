@@ -7,6 +7,10 @@ export class LoadingService {
   private _loadingSubj = new BehaviorSubject(false);
   loading$ = this._loadingSubj.asObservable();
 
+  constructor() {
+    console.log('loadingService created')
+  }
+
   showLoadingUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
     return of(null).pipe(             // just initialize $
       tap(() => this.loadingOn()),
@@ -16,7 +20,7 @@ export class LoadingService {
 
   }
 
-  private loadingOn() {
+   loadingOn() {
     this._loadingSubj.next(true);
   }
 

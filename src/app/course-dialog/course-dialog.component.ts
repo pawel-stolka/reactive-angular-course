@@ -11,7 +11,10 @@ import { LoadingService } from '../loading/loading.service';
 @Component({
     selector: 'course-dialog',
     templateUrl: './course-dialog.component.html',
-    styleUrls: ['./course-dialog.component.css']
+    styleUrls: ['./course-dialog.component.css'],
+    providers: [
+      LoadingService
+    ]
 })
 export class CourseDialogComponent implements AfterViewInit {
     form: FormGroup;
@@ -37,7 +40,9 @@ export class CourseDialogComponent implements AfterViewInit {
 
     save() {
         const changes = this.form.value;
-        this.coursesService.saveCourses(this.course.id, changes)
+        const saveCourse$ = this.coursesService.saveCourses(this.course.id, changes);
+
+        this.loadingService.showLoadingUntilCompleted(saveCourse$)
             .subscribe(
                 (val) => {
                     this.dialogRef.close(val);
