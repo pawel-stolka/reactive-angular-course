@@ -15,6 +15,11 @@
       "es2017",
       "dom",
       "ES2017.object"
-    ]
+    ],
+    "paths": {
+      "path": [
+        "./node_modules/path-browserify"
+      ]
+    }
   }
 }

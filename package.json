@@ -27,9 +27,10 @@
     "body-parser": "^1.18.3",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "rxjs": "6.5.4",
     "tslib": "^2.0.0",
+    "util": "^0.12.4",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "path-browserify": "^1.0.1",
     "protractor": "~7.0.0",
     "ts-node": "~3.2.0",
     "tslint": "~6.1.0",
