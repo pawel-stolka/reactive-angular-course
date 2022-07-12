@@ -29,9 +29,10 @@ export class HomeComponent implements OnInit {
 
     const courses$ = this.coursesService.fetchAllCourses().pipe(
       map(courses => courses.sort(sortCoursesBySeqNo)),
-      // shareReplay(),
       finalize(() => this.loadingService.loadingOff())
     )
+
+    const loadCourses$ = this.loadingService.showLoadingUntilCompleted(courses$);
 
     this.beginnerCourses$ = courses$.pipe(
       map(courses => courses.filter(course => course.category === 'BEGINNER'))
