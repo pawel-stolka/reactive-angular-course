@@ -35,11 +35,36 @@ export class CoursesStore {
         this.messages.showErrors(message);
         return throwError(err);
       }),
-      tap(courses => this._coursesSubj.next(courses))
+      tap((courses) => this._coursesSubj.next(courses))
     );
 
-    this.loading.showLoadingUntilCompleted(loadCourses$)
-      .subscribe()
+    this.loading.showLoadingUntilCompleted(loadCourses$).subscribe();
+  }
+
+  saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
+    // 1. modify data in store
+    const courses = this._coursesSubj.getValue();
+    const index = courses.findIndex((course) => course.id === courseId);
+    const newCourse: Course = {
+      ...courses[index],
+      ...changes,
+    };
+    const newCourses: Course[] = courses.slice(0);
+    newCourses[index] = newCourse;
+    this._coursesSubj.next(newCourses);
+
+    // 2. return it optimistically from store
+    return this.http.put(`/api/courses/${courseId}`, changes).pipe(
+      delay(DELAY),
+      catchError((err) => {
+        const message = 'Could not save course';
+        console.log(message, err);
+        this.messages.showErrors(message);
+        return throwError(err);
+      }),
+      shareReplay()
+    );
+
   }
 
   filterByCategory(category: string): Observable<Course[]> {
