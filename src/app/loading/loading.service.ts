@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap, concatMap, finalize } from "rxjs/operators";
+import { tap, concatMap, finalize } from 'rxjs/operators';
 
 @Injectable() // no global singleton
 export class LoadingService {
@@ -8,19 +8,19 @@ export class LoadingService {
   loading$ = this._loadingSubj.asObservable();
 
   constructor() {
-    console.log('loadingService created')
+    console.log('loadingService created');
   }
 
   showLoadingUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
-    return of(null).pipe(             // just initialize $
+    // just initialize $
+    return of(null).pipe(
       tap(() => this.loadingOn()),
-      concatMap(() => obs$),          //proxy returning the same obs$ as input, but turning on/off loading$
+      concatMap(() => obs$), //proxy returning the same obs$ as input, but turning on/off loading$
       finalize(() => this.loadingOff())
-    )
-
+    );
   }
 
-   loadingOn() {
+  loadingOn() {
     this._loadingSubj.next(true);
   }
 
