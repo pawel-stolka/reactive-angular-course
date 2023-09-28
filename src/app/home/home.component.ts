@@ -14,6 +14,7 @@ import { LoadingService } from '../loading/loading.service';
 })
 export class HomeComponent implements OnInit {
   beginnerCourses$: Observable<Course[]>;
+  intermediateCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
 
   constructor(
@@ -40,6 +41,9 @@ export class HomeComponent implements OnInit {
 
     this.beginnerCourses$ = loadCourses$.pipe(
       map(courses => courses.filter(course => course.category === 'BEGINNER'))
+    )
+    this.intermediateCourses$ = loadCourses$.pipe(
+      map(courses => courses.filter(course => course.category === 'INTERMEDIATE'))
     )
     this.advancedCourses$ = loadCourses$.pipe(
       map(courses => courses.filter(course => course.category === 'ADVANCED'))

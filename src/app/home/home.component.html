@@ -8,6 +8,12 @@
         </courses-card-list>
         </mat-tab>
 
+        <mat-tab label="Intermediate">
+          <courses-card-list [courses]="intermediateCourses$ | async"
+            (coursesChanged)="reload()">
+
+          </courses-card-list>
+        </mat-tab>
         <mat-tab label="Advanced">
           <courses-card-list [courses]="advancedCourses$ | async"
             (coursesChanged)="reload()">
