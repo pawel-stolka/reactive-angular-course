@@ -20,7 +20,7 @@ export class CoursesCardListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const courses$ = this.coursesService.fetchAllCourses();
+    // const courses$ = this.coursesService.fetchAllCourses();
   }
 
   trackByFn(item: any) {
@@ -32,9 +32,16 @@ export class CoursesCardListComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "400px"
+    dialogConfig.width = "400px";
     dialogConfig.data = course;
 
     const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed()
+    .pipe(
+      filter(val => !!val),
+      tap(x => this.coursesChanged.emit(x))
+    )
+    .subscribe();
   }
 }
