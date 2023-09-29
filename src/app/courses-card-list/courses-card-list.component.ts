@@ -14,14 +14,9 @@ export class CoursesCardListComponent implements OnInit {
   @Input() courses: Course[];
   @Output() coursesChanged = new EventEmitter();
 
-  constructor(
-    private coursesService: CoursesService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    // const courses$ = this.coursesService.fetchAllCourses();
-  }
+  ngOnInit(): void {}
 
   trackByFn(item: any) {
     return item.id;
@@ -37,11 +32,12 @@ export class CoursesCardListComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed()
-    .pipe(
-      filter(val => !!val),
-      tap(x => this.coursesChanged.emit(x))
-    )
-    .subscribe();
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((val) => !!val),
+        tap((x) => this.coursesChanged.emit(x))
+      )
+      .subscribe();
   }
 }
